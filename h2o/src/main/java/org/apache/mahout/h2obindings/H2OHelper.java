@@ -334,12 +334,15 @@ public class H2OHelper {
       // label vector must be similarly partitioned like the Frame
       labels = makeEmptyStrVec(frame.anyVec());
       Vec.Writer writer = labels.open();
+      try {
       Map<Integer,String> rmap = reverseMap(map);
       for (int r = 0; r < m.rowSize(); r++) {
         writer.set(r, rmap.get(r));
       }
-
+      }
+      finally {
       writer.close(closer);
+      }
     }
 
     closer.blockForPending();
