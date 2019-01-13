@@ -300,10 +300,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
         kase = 4;
       } else {
         int ks;
-        for (ks = p - 1; ks >= k; ks--) {
-          if (ks == k) {
-            break;
-          }
+        for (ks = p - 1; ks > k; ks--) {
           double t =
             (ks != p ?  Math.abs(e[ks]) : 0.) +
             (ks != k + 1 ?  Math.abs(e[ks-1]) : 0.);
