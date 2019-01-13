@@ -194,6 +194,7 @@ public abstract class VectorBinaryAggregate {
       boolean advanceThat = true;
       boolean validResult = false;
       double result = 0;
+      
       while (true) {
         if (advanceThis) {
           if (xi.hasNext()) {
