@@ -160,6 +160,8 @@ public final class UDistrib {
     FileSystem ifs = dataPath.getFileSystem(conf);
     FSDataInputStream input = ifs.open(dataPath);
     Scanner scanner = new Scanner(input, "UTF-8");
+    try {
+    
     DataConverter converter = new DataConverter(dataset);
     
     int id = 0;
@@ -185,15 +187,18 @@ public final class UDistrib {
         currents[label] = 0;
       }
     }
-    
+    }
+    finally {
     // close all the files.
     scanner.close();
+    
     for (FSDataOutputStream file : files) {
       Closeables.close(file, false);
     }
     
     // merge all output files
     FileUtil.copyMerge(pfs, partsPath, fs, outputPath, true, conf, null);
+    }
     /*
      * FSDataOutputStream joined = fs.create(new Path(outputPath, "uniform.data")); for (int p = 0; p <
      * numPartitions; p++) {log.info("Joining part : {}", p); FSDataInputStream partStream =
